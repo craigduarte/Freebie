@@ -2,15 +2,6 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$plugin_info = array(
-  'pi_name' => 'Freebie',
-  'pi_version' => '0.2.4',
-  'pi_author' => 'Doug Avery',
-  'pi_author_url' => 'http://github.com/averyvery/Freebie#readme',
-  'pi_description' => 'Check against any freebie segment',
-  'pi_usage' => Freebie::usage()
-  );
-
 /**
  * Freebie
  *
@@ -200,7 +191,7 @@ class Freebie
    * @access	public
    * @return	string
    */
-    function usage()
+    public static function usage()
     {
     ob_start();
     ?>
