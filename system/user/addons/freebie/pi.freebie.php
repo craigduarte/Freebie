@@ -13,20 +13,20 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Freebie
 {
 
-  function Freebie()
+  function __construct()
   {
 
   }
 
   function any()
   {
-    $this->EE =& get_instance();
+    
     $match = 'false';
-    $name = $this->EE->TMPL->fetch_param('name');
+    $name = ee()->TMPL->fetch_param('name');
 
     for ($i = 1; $i <= 11; $i++){
-      if ( isset( $this->EE->config->_global_vars['freebie_'.$i] ) ) {
-        if ( $this->EE->config->_global_vars['freebie_'.$i] == $name ) {
+      if ( isset( ee()->config->_global_vars['freebie_'.$i] ) ) {
+        if ( ee()->config->_global_vars['freebie_'.$i] == $name ) {
           $match = 'true';
         }
       }
@@ -37,10 +37,10 @@ class Freebie
 
   function is_number()
   {
-    $this->EE =& get_instance();
+    
     $match = 'false';
-    $i = $this->EE->TMPL->fetch_param('segment');
-    $freebie_seg = $this->EE->config->_global_vars['freebie_'.$i];
+    $i = ee()->TMPL->fetch_param('segment');
+    $freebie_seg = ee()->config->_global_vars['freebie_'.$i];
 
     if ( is_numeric( $freebie_seg ) ) {
       $match = 'true';
@@ -51,13 +51,13 @@ class Freebie
 
   function category_match($cat_key)
   {
-    $this->EE =& get_instance();
+    
 
     $match = '';
-    $segment = $this->EE->TMPL->fetch_param('segment');
-    $group_id = $this->EE->TMPL->fetch_param('group_id');
-    $site_id = $this->EE->TMPL->fetch_param('site_id');
-    $category_url = $this->EE->config->_global_vars['freebie_'.$segment];
+    $segment = ee()->TMPL->fetch_param('segment');
+    $group_id = ee()->TMPL->fetch_param('group_id');
+    $site_id = ee()->TMPL->fetch_param('site_id');
+    $category_url = ee()->config->_global_vars['freebie_'.$segment];
     $query_string = "SELECT cat_id, cat_name, cat_description, cat_image FROM exp_categories WHERE cat_url_title = ?";
     $values = array($category_url);
     if($group_id != ''){
@@ -69,7 +69,7 @@ class Freebie
       $values[] = $site_id;
     }
 
-   $query = $this->EE->db->query($query_string,$values);
+   $query = ee()->db->query($query_string,$values);
 
    foreach ($query->result_array() as $row) {
       $match = $row[$cat_key];
@@ -100,42 +100,42 @@ class Freebie
 
   function debug()
   {
-    $this->EE =& get_instance();
-    if(isset($this->EE->config->_global_vars['freebie_debug_settings_to_ignore'])){
+    
+    if(isset(ee()->config->_global_vars['freebie_debug_settings_to_ignore'])){
       echo('<br />To ignore: ' .
-        $this->EE->config->_global_vars['freebie_debug_settings_to_ignore']);
+        ee()->config->_global_vars['freebie_debug_settings_to_ignore']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_settings_ignore_beyond'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_settings_ignore_beyond'])){
       echo('<br />Ignore beyond: ' .
-        $this->EE->config->_global_vars['freebie_debug_settings_ignore_beyond']);
+        ee()->config->_global_vars['freebie_debug_settings_ignore_beyond']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_settings_break_category'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_settings_break_category'])){
       echo('<br />Break category: ' .
-        $this->EE->config->_global_vars['freebie_debug_settings_break_category']);
+        ee()->config->_global_vars['freebie_debug_settings_break_category']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_settings_remove_numbers'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_settings_remove_numbers'])){
       echo('<br />Remove numbers: ' .
-        $this->EE->config->_global_vars['freebie_debug_settings_remove_numbers']);
+        ee()->config->_global_vars['freebie_debug_settings_remove_numbers']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_settings_always_parse'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_settings_always_parse'])){
       echo('<br />Always parse: ' .
-        $this->EE->config->_global_vars['freebie_debug_settings_always_parse']);
+        ee()->config->_global_vars['freebie_debug_settings_always_parse']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_uri'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_uri'])){
       echo('<br />URI: ' .
-        $this->EE->config->_global_vars['freebie_debug_uri']);
+        ee()->config->_global_vars['freebie_debug_uri']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_uri_stripped'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_uri_stripped'])){
       echo('<br />URI stripped: ' .
-        $this->EE->config->_global_vars['freebie_debug_uri_stripped']);
+        ee()->config->_global_vars['freebie_debug_uri_stripped']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_segments'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_segments'])){
       echo('<br />Segments: ' .
-        $this->EE->config->_global_vars['freebie_debug_segments']);
+        ee()->config->_global_vars['freebie_debug_segments']);
     }
-    if(isset($this->EE->config->_global_vars['freebie_debug_uri_cleaned'])){
+    if(isset(ee()->config->_global_vars['freebie_debug_uri_cleaned'])){
       echo('<br />URI cleaned: ' .
-        $this->EE->config->_global_vars['freebie_debug_uri_cleaned']);
+        ee()->config->_global_vars['freebie_debug_uri_cleaned']);
     }
   }
 
@@ -147,13 +147,13 @@ class Freebie
   function adjust_pagination_url()
   {
 
-    $this->EE =& get_instance();
+    
 
-    $pagination_url = $this->EE->TMPL->tagdata;
+    $pagination_url = ee()->TMPL->tagdata;
 
-    if( isset($this->EE->config->_global_vars["freebie_original_uri"]) ){
+    if( isset(ee()->config->_global_vars["freebie_original_uri"]) ){
 
-      $freebie_url = $this->EE->config->_global_vars["freebie_original_uri"];
+      $freebie_url = ee()->config->_global_vars["freebie_original_uri"];
 
       $pagination_segments = explode("/", $pagination_url);
       $freebie_segments = explode("/", $freebie_url);

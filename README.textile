@@ -1,6 +1,6 @@
-h1. Freebie 0.3.0
+h1. Freebie 0.3.0 - forked
 
-This is a quick-n-dirty port of Freebie to EE3
+This is a quick-n-dirty port of Freebie to EE3 - tested on 3.4.3
 ---
 
 Tell EE to ignore certain segments when routing. Put useful segments into your URI without getting 404s, bad templates, or messing up the routing "Structure":http://www.buildwithstructure.com uses.
